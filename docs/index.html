@@ -94,6 +94,8 @@
             font-weight: 600;
             border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s;
+            cursor: pointer;
+            user-select: none;
         }
 
         .api-status.online {
@@ -1342,6 +1344,12 @@
                 e.target.classList.add("active");
                 renderAgents(e.target.dataset.filter, searchInput.value);
             }
+        });
+
+        // Manual reconnect check on badge click
+        apiStatus.addEventListener("click", () => {
+            apiStatus.querySelector(".status-text").innerText = "Connexion...";
+            checkLocalBridge();
         });
 
         // Init

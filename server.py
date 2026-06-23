@@ -15,7 +15,17 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
+# Charger le fichier .env s'il existe pour récupérer la GEMINI_API_KEY
+if os.path.exists(".env"):
+    with open(".env", "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                key, val = line.split("=", 1)
+                os.environ[key.strip()] = val.strip().strip('"').strip("'")
+
 from google.antigravity import Agent, LocalAgentConfig, CapabilitiesConfig
+
 from agents.orchestrator import HierarchicalAgent, generate_subagent_structure
 
 app = FastAPI(title="Antigravity Local SaaS Bridge")
