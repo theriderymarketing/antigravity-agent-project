@@ -80,7 +80,14 @@ def extract_agent_info(file_path: str) -> tuple:
         instructions_match = re.search(r'system_instructions=\s*"(.*?)"', content, re.DOTALL)
     
     instructions = clean_docstring(instructions_match.group(1)) if instructions_match else "Tu es un agent d'intelligence artificielle spécialisé."
+    
+    # Forcer le français pour tous les agents sauf les agents linguistiques spécifiques
+    is_foreign_lang = any(lang in file_path for lang in ["anglais_agent.py", "espagnol_agent.py", "japonais_agent.py", "chinois_agent.py", "italien_agent.py"])
+    if not is_foreign_lang:
+        instructions += " Tu dois impérativement répondre et formuler toutes tes réflexions internes (thoughts) et tes messages en français."
+        
     return description, instructions
+
 
 async def run_classic_stream(instructions: str, prompt: str):
     """Exécute un agent standard et streame ses pensées et réponses."""

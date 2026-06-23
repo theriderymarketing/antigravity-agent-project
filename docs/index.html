@@ -1246,10 +1246,12 @@
             if (!activeAgent || !isLocalServerOnline) return;
 
             let prompt = promptInput.value.trim() || "Fais une démonstration de tes compétences.";
+            promptInput.value = ""; // Vider la barre de texte immédiatement
             if (attachedFilepath) {
                 prompt += `\n\n[Fichier joint à analyser : ${attachedFilepath}]`;
             }
             const isHierarchical = executionMode.value === "hierarchical";
+
 
             terminalOutput.innerHTML = `<div class="terminal-status">⌛ Lancement de l'agent en mode ${isHierarchical ? 'Hiérarchique (31 agents)' : 'Classique'}...</div>`;
             if (attachedFilepath) {
