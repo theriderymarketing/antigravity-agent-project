@@ -76,6 +76,53 @@
             color: var(--text-secondary);
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .api-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+        }
+
+        .api-status.online {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.05);
+        }
+
+        .api-status.offline {
+            border-color: rgba(244, 63, 94, 0.3);
+            background: rgba(244, 63, 94, 0.05);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: var(--text-muted);
+            box-shadow: 0 0 8px currentColor;
+        }
+
+        .api-status.online .status-dot {
+            background-color: #10b981;
+            color: #10b981;
+        }
+
+        .api-status.offline .status-dot {
+            background-color: #f43f5e;
+            color: #f43f5e;
+        }
+
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -370,6 +417,34 @@
             flex-grow: 1;
         }
 
+        .agent-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .btn-card-launch {
+            flex-grow: 1;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: all 0.2s;
+            background: var(--card-accent, #6366f1);
+            color: white;
+        }
+
+        .btn-card-launch:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
         .agent-footer {
             border-top: 1px solid rgba(255, 255, 255, 0.05);
             padding-top: 1.25rem;
@@ -412,6 +487,209 @@
 
         .copy-btn:hover {
             color: var(--text-primary);
+        }
+
+        /* Modal Console */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(6, 8, 19, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-backdrop.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .console-modal {
+            background: #0d111d;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            width: 90%;
+            max-width: 800px;
+            height: 85vh;
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal-backdrop.active .console-modal {
+            transform: scale(1);
+        }
+
+        .console-header {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .console-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .console-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .console-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .console-close:hover {
+            color: var(--text-primary);
+        }
+
+        .console-settings {
+            padding: 1.25rem 1.5rem;
+            background: rgba(255, 255, 255, 0.01);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .setting-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .setting-group label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .setting-group select {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .setting-group select:focus {
+            outline: none;
+            border-color: #6366f1;
+        }
+
+        .console-body {
+            flex-grow: 1;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            min-height: 0;
+        }
+
+        .prompt-area-wrap {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .prompt-input {
+            flex-grow: 1;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            resize: none;
+            height: 50px;
+            transition: all 0.2s;
+        }
+
+        .prompt-input:focus {
+            outline: none;
+            border-color: #6366f1;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .btn-run {
+            padding: 0 1.5rem;
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: opacity 0.2s;
+        }
+
+        .btn-run:hover {
+            opacity: 0.9;
+        }
+
+        .btn-run:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .terminal-output {
+            flex-grow: 1;
+            background: #05070c;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.85rem;
+            overflow-y: auto;
+            color: #a7f3d0;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .terminal-status {
+            color: #94a3b8;
+        }
+
+        .terminal-thought {
+            color: #fbbf24;
+            font-style: italic;
+        }
+
+        .terminal-token {
+            color: #34d399;
+        }
+
+        .terminal-error {
+            color: #f87171;
+            font-weight: bold;
         }
 
         /* Installation Section */
@@ -556,10 +834,16 @@
 
     <header>
         <div class="logo">🚀 Antigravity <span>Agents</span></div>
-        <div class="nav-links">
-            <a href="#agents">Explorer</a>
-            <a href="#install">Installation</a>
-            <a href="https://github.com/theriderymarketing/antigravity-agent-project" target="_blank">GitHub</a>
+        <div class="header-right">
+            <div class="api-status offline" id="apiStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Pont local : Hors ligne</span>
+            </div>
+            <div class="nav-links">
+                <a href="#agents">Explorer</a>
+                <a href="#install">Installation</a>
+                <a href="https://github.com/theriderymarketing/antigravity-agent-project" target="_blank">GitHub</a>
+            </div>
         </div>
     </header>
 
@@ -618,6 +902,46 @@
         <!-- Javascript will inject cards here -->
     </div>
 
+    <!-- Modal Console d'Exécution -->
+    <div class="modal-backdrop" id="consoleModalBackdrop">
+        <div class="console-modal">
+            <div class="console-header">
+                <div class="console-title-wrap">
+                    <span id="modalAgentEmoji" style="font-size: 1.5rem;">🤖</span>
+                    <span class="console-title" id="modalAgentName">Nom de l'agent</span>
+                </div>
+                <button class="console-close" id="closeModalBtn">&times;</button>
+            </div>
+            
+            <div class="console-settings">
+                <div class="setting-group">
+                    <label for="executionMode">Mode d'exécution :</label>
+                    <select id="executionMode">
+                        <option value="classic">Classique (1 Agent)</option>
+                        <option value="hierarchical">Hiérarchique (31 Agents cascade)</option>
+                    </select>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted);" id="apiServerWarning">
+                    ⚠️ Lancez `python server.py` pour pouvoir interagir.
+                </div>
+            </div>
+
+            <div class="console-body">
+                <div class="terminal-output" id="terminalOutput">
+                    <div class="terminal-status">Console prête. Entrez votre demande et lancez l'agent.</div>
+                </div>
+
+                <div class="prompt-area-wrap">
+                    <textarea class="prompt-input" id="promptInput" placeholder="Posez votre question ou détaillez la tâche à exécuter..."></textarea>
+                    <button class="btn-run" id="btnRun" disabled>
+                        <span>Exécuter</span>
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section class="install-section" id="install">
         <div class="install-container">
             <h2>⚡ Démarrage Rapide</h2>
@@ -630,13 +954,13 @@
                 </div>
                 <div class="step-card">
                     <div class="step-num">2</div>
-                    <h3>Setup venv</h3>
-                    <code>cd antigravity-agent-project && python3 -m venv venv && source venv/bin/activate</code>
+                    <h3>Setup venv & packages</h3>
+                    <code>cd antigravity-agent-project && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt</code>
                 </div>
                 <div class="step-card">
                     <div class="step-num">3</div>
-                    <h3>Installer le SDK</h3>
-                    <code>pip install -r requirements.txt</code>
+                    <h3>Lancer le serveur API local</h3>
+                    <code>python server.py</code>
                 </div>
             </div>
         </div>
@@ -726,6 +1050,45 @@
         const grid = document.getElementById("agentsGrid");
         const searchInput = document.getElementById("searchInput");
         const filterTabs = document.getElementById("filterTabs");
+        const apiStatus = document.getElementById("apiStatus");
+        const apiServerWarning = document.getElementById("apiServerWarning");
+        const btnRun = document.getElementById("btnRun");
+
+        // Modal Elements
+        const backdrop = document.getElementById("consoleModalBackdrop");
+        const closeModalBtn = document.getElementById("closeModalBtn");
+        const modalAgentEmoji = document.getElementById("modalAgentEmoji");
+        const modalAgentName = document.getElementById("modalAgentName");
+        const executionMode = document.getElementById("executionMode");
+        const promptInput = document.getElementById("promptInput");
+        const terminalOutput = document.getElementById("terminalOutput");
+
+        let activeAgent = null;
+        let isLocalServerOnline = false;
+
+        // Poll Local Bridge Status
+        async function checkLocalBridge() {
+            try {
+                const res = await fetch("http://localhost:8000/health");
+                const data = await res.json();
+                if (data.status === "ok") {
+                    isLocalServerOnline = true;
+                    apiStatus.className = "api-status online";
+                    apiStatus.querySelector(".status-text").innerText = "Pont local : Connecté";
+                    apiServerWarning.style.display = "none";
+                    btnRun.removeAttribute("disabled");
+                }
+            } catch (err) {
+                isLocalServerOnline = false;
+                apiStatus.className = "api-status offline";
+                apiStatus.querySelector(".status-text").innerText = "Pont local : Hors ligne";
+                apiServerWarning.style.display = "block";
+                btnRun.setAttribute("disabled", "true");
+            }
+        }
+
+        setInterval(checkLocalBridge, 4000);
+        checkLocalBridge();
 
         function renderAgents(filter = "all", query = "") {
             grid.innerHTML = "";
@@ -762,6 +1125,12 @@
                         <p class="agent-desc">${agent.desc}</p>
                     </div>
                     <div class="agent-footer">
+                        <div class="agent-actions">
+                            <button class="btn-card-launch" onclick="openConsole('${agent.name}', '${agent.emoji}', '${agent.category}', '${agent.file}')" style="background: ${accentColor};">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                Ouvrir l'Agent
+                            </button>
+                        </div>
                         <div class="cmd-box">
                             <span class="cmd-text">${command}</span>
                             <button class="copy-btn" onclick="copyToClipboard('${command}', this)" title="Copier la commande">
@@ -783,7 +1152,109 @@
             });
         }
 
-        // Event listeners
+        // Open Console Modal
+        function openConsole(name, emoji, category, file) {
+            activeAgent = { name, emoji, category, file };
+            modalAgentEmoji.innerText = emoji;
+            modalAgentName.innerText = name;
+            terminalOutput.innerHTML = `<div class="terminal-status">Console d'exécution de l'agent [${name}] prête.</div>`;
+            if (isLocalServerOnline) {
+                btnRun.removeAttribute("disabled");
+            } else {
+                btnRun.setAttribute("disabled", "true");
+                terminalOutput.innerHTML += `<div class="terminal-error">❌ Le pont local est déconnecté. Pour exécuter cet agent, veuillez lancer 'python server.py' en local.</div>`;
+            }
+            backdrop.classList.add("active");
+        }
+
+        closeModalBtn.addEventListener("click", () => {
+            backdrop.classList.remove("active");
+            activeAgent = null;
+        });
+
+        // Run agent locally and stream results via SSE
+        btnRun.addEventListener("click", async () => {
+            if (!activeAgent || !isLocalServerOnline) return;
+
+            const prompt = promptInput.value.trim() || "Fais une démonstration de tes compétences.";
+            const isHierarchical = executionMode.value === "hierarchical";
+
+            terminalOutput.innerHTML = `<div class="terminal-status">⌛ Lancement de l'agent en mode ${isHierarchical ? 'Hiérarchique (31 agents)' : 'Classique'}...</div>`;
+            btnRun.setAttribute("disabled", "true");
+            promptInput.setAttribute("disabled", "true");
+
+            try {
+                const response = await fetch("http://localhost:8000/run", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        category: activeAgent.category,
+                        file: activeAgent.file,
+                        prompt: prompt,
+                        hierarchical: isHierarchical
+                    })
+                });
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                let buffer = "";
+
+                while (true) {
+                    const { value, done } = await reader.read();
+                    if (done) break;
+
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split("\n\n");
+                    buffer = lines.pop(); // Conserver la ligne incomplète
+
+                    for (const line of lines) {
+                        if (line.startsWith("data: ")) {
+                            try {
+                                const data = JSON.parse(line.slice(6));
+                                if (data.type === "status") {
+                                    const el = document.createElement("div");
+                                    el.className = "terminal-status";
+                                    el.innerText = `⚙️ ${data.content}`;
+                                    terminalOutput.appendChild(el);
+                                } else if (data.type === "thought") {
+                                    const el = document.createElement("div");
+                                    el.className = "terminal-thought";
+                                    el.innerText = `💭 ${data.content}`;
+                                    terminalOutput.appendChild(el);
+                                } else if (data.type === "token") {
+                                    // Ajouter le token
+                                    let lastTokenEl = terminalOutput.querySelector(".terminal-token-block");
+                                    if (!lastTokenEl) {
+                                        lastTokenEl = document.createElement("span");
+                                        lastTokenEl.className = "terminal-token terminal-token-block";
+                                        terminalOutput.appendChild(lastTokenEl);
+                                    }
+                                    lastTokenEl.innerText += data.content;
+                                } else if (data.type === "error") {
+                                    const el = document.createElement("div");
+                                    el.className = "terminal-error";
+                                    el.innerText = `❌ Erreur : ${data.content}`;
+                                    terminalOutput.appendChild(el);
+                                }
+                                terminalOutput.scrollTop = terminalOutput.scrollHeight;
+                            } catch (e) {
+                                // Erreur silencieuse de parse
+                            }
+                        }
+                    }
+                }
+            } catch (err) {
+                const el = document.createElement("div");
+                el.className = "terminal-error";
+                el.innerText = `❌ Erreur réseau ou pont déconnecté.`;
+                terminalOutput.appendChild(el);
+            } finally {
+                btnRun.removeAttribute("disabled");
+                promptInput.removeAttribute("disabled");
+            }
+        });
+
+        // Search and filter event listeners
         searchInput.addEventListener("input", (e) => {
             const activeFilter = filterTabs.querySelector(".filter-btn.active").dataset.filter;
             renderAgents(activeFilter, e.target.value);
