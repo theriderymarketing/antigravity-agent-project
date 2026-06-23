@@ -1,29 +1,40 @@
 # 🚀 Antigravity Agent Project
 
-**Boîte à outils complète de 39 agents IA ultra-spécialisés**, propulsée par le [SDK Antigravity](https://github.com/google-antigravity/antigravity-sdk-python).
+**Boîte à outils complète de 45 agents IA ultra-spécialisés**, propulsée par le [SDK Antigravity](https://github.com/google-antigravity/antigravity-sdk-python).
 
-Ce projet implémente également un **Orchestrateur Hiérarchique** permettant d'exécuter n'importe quel agent avec un réseau de **31 agents en cascade** (1 agent principal + 5 sous-agents de niveau 1 + 25 sous-agents de niveau 2).
+Ce projet implémente :
+- **Un Pont API local (FastAPI/SSE)** : Pour piloter vos agents depuis une interface Web Premium.
+- **Un Orchestrateur Hiérarchique** : Permettant d'exécuter n'importe quel agent avec un réseau de **31 agents en cascade** (1 agent principal + 5 sous-agents de niveau 1 + 25 sous-agents de niveau 2).
+- **Le Support Multi-fichiers** : Téléversez des PDF, images, pistes audio ou vidéos depuis l'interface pour analyse directe.
 
 ---
 
-## 📦 Installation
+## 📖 Interface Web (GitHub Pages)
+
+Découvrez le Hub interactif de tous nos agents sur : **[https://theriderymarketing.github.io/antigravity-agent-project/](https://theriderymarketing.github.io/antigravity-agent-project/)**
+
+---
+
+## 📦 Installation & Démarrage
 
 ```bash
-# Cloner le repo
+# 1. Cloner le repo
 git clone https://github.com/theriderymarketing/antigravity-agent-project.git
 cd antigravity-agent-project
 
-# Créer un environnement virtuel
+# 2. Créer un environnement virtuel et installer les dépendances
 python3 -m venv venv
 source venv/bin/activate
-
-# Installer les dépendances
 pip install -r requirements.txt
+
+# 3. Lancer le pont API pour l'interface SaaS
+python server.py
 ```
+*Une fois le serveur lancé, ouvrez la page GitHub Pages. Le badge de statut passera au vert (`Pont local : Connecté`), vous permettant de configurer, téléverser des fichiers et lancer tous les agents en 1 clic.*
 
 ---
 
-## 🎯 Utilisation rapide
+## 🎯 Utilisation en ligne de commande (TUI)
 
 ### Mode classique (Chat direct avec 1 agent)
 
@@ -31,45 +42,24 @@ pip install -r requirements.txt
 python main.py
 ```
 
-### Mode Hiérarchique (Réseau de 31 agents) 🔥 NEW
+### Mode Hiérarchique (Réseau de 31 agents)
 
 Exécutez n'importe quel agent avec une délégation et une synthèse hiérarchique sur 3 niveaux :
 ```bash
 python main_hierarchical.py
 ```
-*Le script vous proposera un menu interactif pour choisir la catégorie (juridique, dev, finance...), l'agent, et saisir votre prompt.*
 
 ---
 
-## 🏗️ L'Architecture Multi-Agents (1-5-25)
+## 🤖 Catalogue des Agents (45 Agents)
 
-Lors du lancement en mode hiérarchique :
-1. **L'Agent Principal (Lvl 0)** conçoit une structure multi-agents adaptée au problème.
-2. Il recrute **5 sous-agents spécialisés (Lvl 1)** en parallèle.
-3. Chaque sous-agent de niveau 1 recrute à son tour **5 spécialistes très précis (Lvl 2)**.
-4. Les résultats remontent la hiérarchie avec des phases de validation et de synthèse successives.
-
-```mermaid
-graph TD
-    Root[Agent Principal - Lvl 0] --> L1_1[Sous-Agent 1 - Lvl 1]
-    Root --> L1_2[Sous-Agent 2 - Lvl 1]
-    Root --> L1_3[Sous-Agent 3 - Lvl 1]
-    Root --> L1_4[Sous-Agent 4 - Lvl 1]
-    Root --> L1_5[Sous-Agent 5 - Lvl 1]
-    
-    L1_1 --> L2_11[Expert Lvl 2]
-    L1_1 --> L2_12[Expert Lvl 2]
-    L1_1 --> L2_13[Expert Lvl 2]
-    L1_1 --> L2_14[Expert Lvl 2]
-    L1_1 --> L2_15[Expert Lvl 2]
-    
-    style Root fill:#f9f,stroke:#333,stroke-width:4px
-    style L1_1 fill:#bbf,stroke:#333,stroke-width:2px
-```
-
----
-
-## 🤖 Catalogue des Agents (39 Agents)
+### 🌍 Langues — `agents/langues/` 🔥 NEW
+- **🇬🇧 Anglais** (`anglais_agent.py`) : Édition, traduction fluide, registres et expressions idiomatiques.
+- **🇪🇸 Espagnol** (`espagnol_agent.py`) : Localisation (Espagne vs Amérique Latine) et traduction.
+- **🇫🇷 Français** (`francais_agent.py`) : Stylistique professionnelle, correction grammaticale.
+- **🇯🇵 Japonais** (`japonais_agent.py`) : Protocoles d'affaires, rédaction de mails, Keigo.
+- **🇨🇳 Chinois** (`chinois_agent.py`) : Simplifié & Traditionnel, nuances régionales et culturelles.
+- **🇮🇹 Italien** (`italien_agent.py`) : Expressions courantes, rédaction formelle et informelle.
 
 ### 🔧 Dev — `agents/dev/`
 - **🐛 Debugger** (`debug_agent.py`) : Analyse les bugs, identifie la cause racine et propose un correctif.
@@ -83,17 +73,6 @@ graph TD
 - **✍️ Copywriting** (`copywriting_agent.py`) : Génère newsletters, landing pages et posts sociaux.
 - **📊 Data Analysis** (`data_analysis_agent.py`) : Résumé statistique, tendances et anomalies (CSV/JSON).
 - **📅 Content Planner** (`content_planner_agent.py`) : Création de calendriers éditoriaux et stratégies multi-canaux.
-
-### ⚙️ DevOps — `agents/devops/`
-- **🛡️ Sécurité** (`security_audit_agent.py`) : Scan de vulnérabilités, secrets durs et failles d'injection.
-- **🔄 CI/CD** (`ci_cd_agent.py`) : Génération de workflows GitHub Actions et de Dockerfiles.
-- **🏗️ Infrastructure** (`infra_agent.py`) : Terraform, Docker Compose et Kubernetes.
-- **📡 Monitoring** (`monitoring_agent.py`) : Logging, alertes et routes de santé applicative.
-
-### 🎨 Creative — `agents/creative/`
-- **💡 Brainstorming** (`brainstorm_agent.py`) : Idéation créative avec méthodes SCAMPER et mind mapping.
-- **🎨 UI/UX Design** (`ui_design_agent.py`) : Audit d'interface, accessibilité (WCAG) et responsive.
-- **🏷️ Naming** (`naming_agent.py`) : Génère des propositions de noms inspirés.
 
 ### ⚖️ Juridique — `agents/juridique/`
 - **📜 Rédacteur de Contrats** (`contrat_agent.py`) : Analyse et rédaction de NDA, CGV, prestataires, SLA.
@@ -128,11 +107,12 @@ graph TD
 - **🎓 Tuteur Interactif** (`tuteur_agent.py`) : Accompagnement pédagogique par méthode socratique.
 - **🗺️ Orientation Pro** (`orientation_agent.py`) : Conseils d'orientation et métiers.
 
+### 🎨 Creative — `agents/creative/`
+- **💡 Brainstorming** (`brainstorm_agent.py`) : Idéation créative avec méthodes SCAMPER et mind mapping.
+- **🎨 UI/UX Design** (`ui_design_agent.py`) : Audit d'interface, accessibilité (WCAG) et responsive.
+- **🏷️ Naming** (`naming_agent.py`) : Génère des propositions de noms inspirés.
+
 ---
-
-## 📖 Interface Web (GitHub Pages)
-
-Découvrez le Hub interactif de tous nos agents sur : **[https://theriderymarketing.github.io/antigravity-agent-project/](https://theriderymarketing.github.io/antigravity-agent-project/)**
 
 ## 📄 Licence
 
