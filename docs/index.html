@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Antigravity Agents — Hub d'Agents IA Spécialisés</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #060813;
+            --bg-surface: rgba(15, 22, 42, 0.6);
+            --bg-surface-hover: rgba(30, 41, 59, 0.8);
+            --border-glow: rgba(99, 102, 241, 0.15);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            
+            /* Categories Colors */
+            --color-dev: #00f0ff;
+            --color-business: #a855f7;
+            --color-devops: #f43f5e;
+            --color-creative: #f59e0b;
+            --color-juridique: #10b981;
+            --color-finance: #3b82f6;
+            --color-rh: #ec4899;
+            --color-immobilier: #84cc16;
+            --color-education: #06b6d4;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(244, 63, 94, 0.1) 0%, transparent 40%);
+            background-attachment: fixed;
+        }
+
+        /* Header / Navbar */
+        header {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(6, 8, 19, 0.8);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f0ff 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            font-weight: 300;
+            color: var(--text-secondary);
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            margin-left: 1.5rem;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem 4rem;
+            text-align: center;
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #94a3b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, #00f0ff 0%, #8b5cf6 50%, #f43f5e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            max-width: 650px;
+            margin: 0 auto 2.5rem;
+            line-height: 1.6;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            color: white;
+            border: none;
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-glow);
+            padding: 1.5rem;
+            border-radius: 24px;
+            backdrop-filter: blur(12px);
+            max-width: 800px;
+            margin: 0 auto 5rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-val {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00f0ff 0%, #a855f7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-lbl {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Search & Filter Section */
+        .controls-section {
+            max-width: 1200px;
+            margin: 0 auto 3rem;
+            padding: 0 2rem;
+        }
+
+        .search-container {
+            position: relative;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem 1rem 3.5rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            backdrop-filter: blur(8px);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: rgba(99, 102, 241, 0.5);
+            background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--bg-color-tab, rgba(99, 102, 241, 0.2));
+            border-color: var(--color-tab, #6366f1);
+            color: var(--text-primary);
+            box-shadow: 0 0 15px var(--glow-tab, rgba(99, 102, 241, 0.2));
+        }
+
+        /* Agents Grid */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto 5rem;
+            padding: 0 2rem;
+        }
+
+        .agent-card {
+            background: var(--bg-surface);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 1.75rem;
+            position: relative;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(12px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+        }
+
+        .agent-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--card-accent, #6366f1);
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            background: var(--bg-surface-hover);
+            border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3), 0 0 20px var(--card-accent-alpha, rgba(99, 102, 241, 0.1));
+        }
+
+        .agent-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1.25rem;
+        }
+
+        .agent-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--card-accent-alpha, rgba(99, 102, 241, 0.1));
+            color: var(--card-accent, #6366f1);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .mode-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+        }
+
+        .mode-badge.write {
+            color: #60a5fa;
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .mode-badge.interactive {
+            color: #c084fc;
+            background: rgba(168, 85, 247, 0.1);
+        }
+
+        .agent-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .agent-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .agent-footer {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .cmd-box {
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            justify-content: space-between;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .cmd-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-right: 0.5rem;
+        }
+
+        .copy-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+            padding: 0.25rem;
+        }
+
+        .copy-btn:hover {
+            color: var(--text-primary);
+        }
+
+        /* Installation Section */
+        .install-section {
+            background: var(--bg-surface);
+            border-top: 1px solid var(--border-glow);
+            border-bottom: 1px solid var(--border-glow);
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .install-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .install-container h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .install-container p {
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .step-card {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .step-num {
+            position: absolute;
+            top: -1rem;
+            left: 1.5rem;
+            width: 2rem;
+            height: 2rem;
+            background: linear-gradient(135deg, #00f0ff 0%, #a855f7 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(99, 102, 241, 0.4);
+        }
+
+        .step-card h3 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .step-card code {
+            display: block;
+            background: rgba(0,0,0,0.4);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: var(--color-dev);
+            overflow-x: auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        footer a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* Tooltip style */
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip::after {
+            content: 'Copié !';
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 0.35rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s;
+        }
+
+        .tooltip.show::after {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.75rem;
+            }
+            .stats-bar {
+                flex-direction: column;
+                gap: 1.5rem;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">🚀 Antigravity <span>Agents</span></div>
+        <div class="nav-links">
+            <a href="#agents">Explorer</a>
+            <a href="#install">Installation</a>
+            <a href="https://github.com/theriderymarketing/antigravity-agent-project" target="_blank">GitHub</a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Plateforme d'Agents IA <span>Ultra-Spécialisés</span></h1>
+        <p>Une collection complète de 39 agents spécialisés (développement, finance, juridique, éducation, RH...) prêts à l'emploi avec le SDK Python de Google Antigravity.</p>
+        <div class="hero-ctas">
+            <a href="#agents" class="btn btn-primary">Explorer les Agents</a>
+            <a href="https://github.com/theriderymarketing/antigravity-agent-project" target="_blank" class="btn btn-secondary">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                Voir sur GitHub
+            </a>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-val">39</div>
+                <div class="stat-lbl">Agents</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val">9</div>
+                <div class="stat-lbl">Catégories</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val">MIT</div>
+                <div class="stat-lbl">Licence</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-val">100%</div>
+                <div class="stat-lbl">Open Source</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="controls-section" id="agents">
+        <div class="search-container">
+            <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <input type="text" class="search-input" id="searchInput" placeholder="Rechercher un agent (ex: debug, contrat, seo...)...">
+        </div>
+
+        <div class="filter-tabs" id="filterTabs">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="dev" style="--color-tab: var(--color-dev); --glow-tab: rgba(0, 240, 255, 0.3)">🔧 Dev</button>
+            <button class="filter-btn" data-filter="business" style="--color-tab: var(--color-business); --glow-tab: rgba(168, 85, 247, 0.3)">💼 Business</button>
+            <button class="filter-btn" data-filter="devops" style="--color-tab: var(--color-devops); --glow-tab: rgba(244, 63, 94, 0.3)">⚙️ DevOps</button>
+            <button class="filter-btn" data-filter="creative" style="--color-tab: var(--color-creative); --glow-tab: rgba(245, 158, 11, 0.3)">🎨 Créatif</button>
+            <button class="filter-btn" data-filter="juridique" style="--color-tab: var(--color-juridique); --glow-tab: rgba(16, 185, 129, 0.3)">⚖️ Juridique</button>
+            <button class="filter-btn" data-filter="finance" style="--color-tab: var(--color-finance); --glow-tab: rgba(59, 130, 246, 0.3)">💰 Finance</button>
+            <button class="filter-btn" data-filter="rh" style="--color-tab: var(--color-rh); --glow-tab: rgba(236, 72, 153, 0.3)">👥 RH</button>
+            <button class="filter-btn" data-filter="immobilier" style="--color-tab: var(--color-immobilier); --glow-tab: rgba(132, 204, 22, 0.3)">🏠 Immobilier</button>
+            <button class="filter-btn" data-filter="education" style="--color-tab: var(--color-education); --glow-tab: rgba(6, 182, 212, 0.3)">🎓 Éducation</button>
+        </div>
+    </div>
+
+    <div class="agents-grid" id="agentsGrid">
+        <!-- Javascript will inject cards here -->
+    </div>
+
+    <section class="install-section" id="install">
+        <div class="install-container">
+            <h2>⚡ Démarrage Rapide</h2>
+            <p>Déployez et exécutez ces agents en local en moins de deux minutes.</p>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <h3>Cloner le projet</h3>
+                    <code>git clone https://github.com/theriderymarketing/antigravity-agent-project.git</code>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <h3>Setup venv</h3>
+                    <code>cd antigravity-agent-project && python3 -m venv venv && source venv/bin/activate</code>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <h3>Installer le SDK</h3>
+                    <code>pip install -r requirements.txt</code>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Créé avec ❤️ en pair-programming avec Antigravity CLI</p>
+        <div class="footer-links">
+            <a href="https://github.com/theriderymarketing/antigravity-agent-project" target="_blank">GitHub</a>
+            <a href="https://antigravity.google/docs" target="_blank">Documentation</a>
+            <a href="https://github.com/google-antigravity/antigravity-sdk-python" target="_blank">SDK Python</a>
+        </div>
+    </footer>
+
+    <script>
+        const agents = [
+            // DEV
+            { name: "Debugger", emoji: "🐛", category: "dev", file: "debug_agent.py", mode: "write", desc: "Analyse les bugs, identifie la cause racine et propose un correctif." },
+            { name: "Refactoring", emoji: "♻️", category: "dev", file: "refactor_agent.py", mode: "write", desc: "Détecte les codes smells et applique les principes SOLID." },
+            { name: "Code Review", emoji: "🔍", category: "dev", file: "code_review_agent.py", mode: "readonly", desc: "Revue qualité, conventions de nommage, sécurité et performances." },
+            { name: "Test Generator", emoji: "🧪", category: "dev", file: "test_generator_agent.py", mode: "write", desc: "Génère des tests unitaires pytest complets et robustes." },
+            { name: "Documentation", emoji: "📝", category: "dev", file: "doc_agent.py", mode: "write", desc: "Génère docstrings, README et documentation technique." },
+            
+            // BUSINESS
+            { name: "SEO", emoji: "🔎", category: "business", file: "seo_agent.py", mode: "readonly", desc: "Analyse de balises meta, headings, structure et mots-clés." },
+            { name: "Copywriting", emoji: "✍️", category: "business", file: "copywriting_agent.py", mode: "write", desc: "Génère du contenu marketing, des posts et des newsletters." },
+            { name: "Data Analysis", emoji: "📊", category: "business", file: "data_analysis_agent.py", mode: "readonly", desc: "Analyse statistique et tendances à partir de fichiers CSV/JSON." },
+            { name: "Content Planner", emoji: "📅", category: "business", file: "content_planner_agent.py", mode: "write", desc: "Création de calendriers éditoriaux et stratégies multi-canaux." },
+            
+            // DEVOPS
+            { name: "Sécurité", emoji: "🛡️", category: "devops", file: "security_audit_agent.py", mode: "readonly", desc: "Scan de vulnérabilités, secrets en dur et failles d'injection." },
+            { name: "CI/CD", emoji: "🔄", category: "devops", file: "ci_cd_agent.py", mode: "write", desc: "Génération de workflows GitHub Actions et de Dockerfiles optimisés." },
+            { name: "Infrastructure", emoji: "🏗️", category: "devops", file: "infra_agent.py", mode: "write", desc: "Génère du code Terraform, Docker Compose et Kubernetes." },
+            { name: "Monitoring", emoji: "📡", category: "devops", file: "monitoring_agent.py", mode: "write", desc: "Configuration de logs, alertes et routes de santé applicative." },
+            
+            // CREATIVE
+            { name: "Brainstorming", emoji: "💡", category: "creative", file: "brainstorm_agent.py", mode: "interactive", desc: "Idéation créative avec méthodes SCAMPER et mind mapping." },
+            { name: "UI/UX Design", emoji: "🎨", category: "creative", file: "ui_design_agent.py", mode: "readonly", desc: "Audit d'interface, accessibilité et design adaptatif (responsive)." },
+            { name: "Naming", emoji: "🏷️", category: "creative", file: "naming_agent.py", mode: "readonly", desc: "Trouve des noms inspirés pour des projets, marques ou fonctions." },
+            
+            // JURIDIQUE
+            { name: "Rédacteur de Contrats", emoji: "📜", category: "juridique", file: "contrat_agent.py", mode: "write", desc: "Rédige et analyse des contrats (NDA, CGV, prestataires, SLA)." },
+            { name: "Conformité RGPD", emoji: "🔐", category: "juridique", file: "rgpd_agent.py", mode: "readonly", desc: "Audit et conformité : cookies, politiques de confidentialité et AIPD." },
+            { name: "Propriété Intellectuelle", emoji: "⚖️", category: "juridique", file: "propriete_intellectuelle_agent.py", mode: "readonly", desc: "Gestion des licences open-source et des dépôts de marques." },
+            { name: "Analyse Contentieux", emoji: "💼", category: "juridique", file: "contentieux_agent.py", mode: "write", desc: "Résolution amiable, mises en demeure et stratégies de litige." },
+            { name: "Veille Juridique", emoji: "📰", category: "juridique", file: "veille_juridique_agent.py", mode: "write", desc: "Veille réglementaire et analyses d'impact législatif." },
+            
+            // FINANCE
+            { name: "Comptabilité", emoji: "📊", category: "finance", file: "comptabilite_agent.py", mode: "write", desc: "Saisie d'écritures, analyse de bilans et déclarations de TVA." },
+            { name: "Fiscalité", emoji: "🏛️", category: "finance", file: "fiscalite_agent.py", mode: "readonly", desc: "Optimisation fiscale légale (CIR, JEI, conventions internationales)." },
+            { name: "Business Plan", emoji: "📈", category: "finance", file: "business_plan_agent.py", mode: "write", desc: "Modélisation financière, prévisions de trésorerie et seuils." },
+            { name: "Facturation", emoji: "🧾", category: "finance", file: "facturation_agent.py", mode: "write", desc: "Génération automatique de factures et devis conformes." },
+            { name: "Investissement", emoji: "🪙", category: "finance", file: "investissement_agent.py", mode: "readonly", desc: "Valorisation de sociétés, calcul de ratios (ROI, DCF) et due diligence." },
+            
+            // RH
+            { name: "Recrutement", emoji: "🤝", category: "rh", file: "recrutement_agent.py", mode: "write", desc: "Rédaction de fiches de poste, analyse de CV et grilles de scoring." },
+            { name: "Formation", emoji: "🏫", category: "rh", file: "formation_agent.py", mode: "write", desc: "Ingénierie pédagogique, création de parcours de formation et QCM." },
+            { name: "Droit Social", emoji: "🛡️", category: "rh", file: "droit_social_agent.py", mode: "readonly", desc: "Conseils Code du travail (contrats, ruptures, conventions collectives)." },
+            { name: "Onboarding", emoji: "👋", category: "rh", file: "onboarding_agent.py", mode: "write", desc: "Parcours d'intégration de nouveaux collaborateurs à 30-60-90 jours." },
+            { name: "Performance", emoji: "🎯", category: "rh", file: "performance_agent.py", mode: "write", desc: "Évaluation de la performance, OKR, KPI et feedback 360°." },
+            
+            // IMMOBILIER
+            { name: "Estimation Immo", emoji: "🏡", category: "immobilier", file: "estimation_agent.py", mode: "readonly", desc: "Estimation de la valeur de biens selon les comparables locaux." },
+            { name: "Rédaction Baux", emoji: "📝", category: "immobilier", file: "bail_agent.py", mode: "write", desc: "Rédige des baux d'habitation (ALUR) ou commerciaux (Pinel)." },
+            { name: "Diagnostics", emoji: "📋", category: "immobilier", file: "diagnostic_agent.py", mode: "write", desc: "Vérification des obligations de diagnostics (DPE, amiante...)." },
+            { name: "Investissement Immo", emoji: "💰", category: "immobilier", file: "investissement_immo_agent.py", mode: "readonly", desc: "Rentabilité brute/nette, fiscalité Pinel/LMNP et cashflow." },
+            
+            // EDUCATION
+            { name: "Créateur de Cours", emoji: "📚", category: "education", file: "cours_agent.py", mode: "write", desc: "Création de plans de cours complets structurés par objectifs." },
+            { name: "Générateur de Quiz", emoji: "🧩", category: "education", file: "quiz_agent.py", mode: "write", desc: "Génération automatisée d'évaluations et de corrigés." },
+            { name: "Tuteur Interactif", emoji: "🎓", category: "education", file: "tuteur_agent.py", mode: "interactive", desc: "Accompagnement pédagogique par méthode socratique interactive." },
+            { name: "Orientation Pro", emoji: "🗺️", category: "education", file: "orientation_agent.py", mode: "readonly", desc: "Conseils en parcours de formation supérieure et opportunités." }
+        ];
+
+        const catColors = {
+            dev: "var(--color-dev)",
+            business: "var(--color-business)",
+            devops: "var(--color-devops)",
+            creative: "var(--color-creative)",
+            juridique: "var(--color-juridique)",
+            finance: "var(--color-finance)",
+            rh: "var(--color-rh)",
+            immobilier: "var(--color-immobilier)",
+            education: "var(--color-education)"
+        };
+
+        const grid = document.getElementById("agentsGrid");
+        const searchInput = document.getElementById("searchInput");
+        const filterTabs = document.getElementById("filterTabs");
+
+        function renderAgents(filter = "all", query = "") {
+            grid.innerHTML = "";
+            const filtered = agents.filter(agent => {
+                const matchesFilter = filter === "all" || agent.category === filter;
+                const matchesQuery = agent.name.toLowerCase().includes(query.toLowerCase()) || 
+                                     agent.desc.toLowerCase().includes(query.toLowerCase());
+                return matchesFilter && matchesQuery;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 4rem 0;">Aucun agent ne correspond à vos critères.</div>`;
+                return;
+            }
+
+            filtered.forEach(agent => {
+                const accentColor = catColors[agent.category] || "#6366f1";
+                const modeLabel = agent.mode === "write" ? "Read/Write" : agent.mode === "interactive" ? "Interactif" : "Read-only";
+                const modeClass = agent.mode === "write" ? "write" : agent.mode === "interactive" ? "interactive" : "";
+                const command = `python agents/${agent.category}/${agent.file}`;
+
+                const card = document.createElement("div");
+                card.className = "agent-card";
+                card.style.setProperty("--card-accent", accentColor);
+                card.style.setProperty("--card-accent-alpha", accentColor + "1a");
+                
+                card.innerHTML = `
+                    <div>
+                        <div class="agent-header">
+                            <span class="agent-badge" style="color: ${accentColor}; background: ${accentColor}1a">${agent.category}</span>
+                            <span class="mode-badge ${modeClass}">${modeLabel}</span>
+                        </div>
+                        <h3 class="agent-title">${agent.emoji} ${agent.name}</h3>
+                        <p class="agent-desc">${agent.desc}</p>
+                    </div>
+                    <div class="agent-footer">
+                        <div class="cmd-box">
+                            <span class="cmd-text">${command}</span>
+                            <button class="copy-btn" onclick="copyToClipboard('${command}', this)" title="Copier la commande">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function copyToClipboard(text, element) {
+            navigator.clipboard.writeText(text).then(() => {
+                element.classList.add("tooltip", "show");
+                setTimeout(() => {
+                    element.classList.remove("tooltip", "show");
+                }, 1500);
+            });
+        }
+
+        // Event listeners
+        searchInput.addEventListener("input", (e) => {
+            const activeFilter = filterTabs.querySelector(".filter-btn.active").dataset.filter;
+            renderAgents(activeFilter, e.target.value);
+        });
+
+        filterTabs.addEventListener("click", (e) => {
+            if (e.target.classList.contains("filter-btn")) {
+                filterTabs.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
+                e.target.classList.add("active");
+                renderAgents(e.target.dataset.filter, searchInput.value);
+            }
+        });
+
+        // Init
+        renderAgents();
+    </script>
+</body>
+</html>
