@@ -10,7 +10,7 @@ import asyncio
 import json
 import os
 import re
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -23,6 +23,16 @@ app = FastAPI(title="Antigravity Local SaaS Bridge")
 @app.get("/health")
 async def health_check():
     return {"status": "ok", "message": "Antigravity Local SaaS Bridge is running"}
+
+@app.post("/upload")
+async def upload_file(file: UploadFile = File(...)):
+    os.makedirs("uploads", exist_ok=True)
+    file_path = os.path.join("uploads", file.filename)
+    with open(file_path, "wb") as f:
+        content = await file.read()
+        f.write(content)
+    return {"status": "ok", "filename": file.filename, "filepath": file_path}
+
 
 # Activer CORS pour permettre à l'interface GitHub Pages d'appeler l'API locale
 

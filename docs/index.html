@@ -25,6 +25,7 @@
             --color-rh: #ec4899;
             --color-immobilier: #84cc16;
             --color-education: #06b6d4;
+            --color-langues: #14b8a6;
         }
 
         * {
@@ -895,6 +896,7 @@
             <button class="filter-btn" data-filter="rh" style="--color-tab: var(--color-rh); --glow-tab: rgba(236, 72, 153, 0.3)">👥 RH</button>
             <button class="filter-btn" data-filter="immobilier" style="--color-tab: var(--color-immobilier); --glow-tab: rgba(132, 204, 22, 0.3)">🏠 Immobilier</button>
             <button class="filter-btn" data-filter="education" style="--color-tab: var(--color-education); --glow-tab: rgba(6, 182, 212, 0.3)">🎓 Éducation</button>
+            <button class="filter-btn" data-filter="langues" style="--color-tab: var(--color-langues); --glow-tab: rgba(20, 184, 166, 0.3)">🌍 Langues</button>
         </div>
     </div>
 
@@ -931,12 +933,21 @@
                     <div class="terminal-status">Console prête. Entrez votre demande et lancez l'agent.</div>
                 </div>
 
-                <div class="prompt-area-wrap">
-                    <textarea class="prompt-input" id="promptInput" placeholder="Posez votre question ou détaillez la tâche à exécuter..."></textarea>
-                    <button class="btn-run" id="btnRun" disabled>
-                        <span>Exécuter</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                    </button>
+                <div class="prompt-area-wrap" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <div style="display: flex; gap: 0.75rem;">
+                        <textarea class="prompt-input" id="promptInput" placeholder="Posez votre question ou détaillez la tâche à exécuter..."></textarea>
+                        <button class="btn-run" id="btnRun" disabled>
+                            <span>Exécuter</span>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                        </button>
+                    </div>
+                    <div class="file-upload-wrap" style="display: flex; align-items: center; gap: 0.75rem;">
+                        <input type="file" id="fileSelector" style="display: none;">
+                        <button class="btn btn-secondary" id="btnUpload" style="padding: 0.4rem 1rem; font-size: 0.8rem; border-radius: 8px;" type="button">
+                            📎 Joindre un fichier (PDF, image, audio, vidéo...)
+                        </button>
+                        <span id="uploadedFileStatus" style="font-size: 0.8rem; color: var(--text-secondary);"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1032,7 +1043,15 @@
             { name: "Créateur de Cours", emoji: "📚", category: "education", file: "cours_agent.py", mode: "write", desc: "Création de plans de cours complets structurés par objectifs." },
             { name: "Générateur de Quiz", emoji: "🧩", category: "education", file: "quiz_agent.py", mode: "write", desc: "Génération automatisée d'évaluations et de corrigés." },
             { name: "Tuteur Interactif", emoji: "🎓", category: "education", file: "tuteur_agent.py", mode: "interactive", desc: "Accompagnement pédagogique par méthode socratique interactive." },
-            { name: "Orientation Pro", emoji: "🗺️", category: "education", file: "orientation_agent.py", mode: "readonly", desc: "Conseils en parcours de formation supérieure et opportunités." }
+            { name: "Orientation Pro", emoji: "🗺️", category: "education", file: "orientation_agent.py", mode: "readonly", desc: "Conseils en parcours de formation supérieure et opportunités." },
+
+            // LANGUES
+            { name: "Anglais", emoji: "🇬🇧", category: "langues", file: "anglais_agent.py", mode: "readonly", desc: "Expert en traduction, rédaction et nuances de la langue anglaise." },
+            { name: "Espagnol", emoji: "🇪🇸", category: "langues", file: "espagnol_agent.py", mode: "readonly", desc: "Traduction, localisation et expressions idiomatiques hispaniques." },
+            { name: "Français", emoji: "🇫🇷", category: "langues", file: "francais_agent.py", mode: "readonly", desc: "Rédaction de niveau professionnel, correction et registres de la langue française." },
+            { name: "Japonais", emoji: "🇯🇵", category: "langues", file: "japonais_agent.py", mode: "readonly", desc: "Traduction de mails, Keigo (politesse) et protocole d'affaires japonais." },
+            { name: "Chinois", emoji: "🇨🇳", category: "langues", file: "chinois_agent.py", mode: "readonly", desc: "Rédaction, localisation et subtilités culturelles chinoises (simple et traditionnel)." },
+            { name: "Italien", emoji: "🇮🇹", category: "langues", file: "italien_agent.py", mode: "readonly", desc: "Traduction fluide, expressions typiques et nuances de la langue italienne." }
         ];
 
         const catColors = {
@@ -1044,7 +1063,8 @@
             finance: "var(--color-finance)",
             rh: "var(--color-rh)",
             immobilier: "var(--color-immobilier)",
-            education: "var(--color-education)"
+            education: "var(--color-education)",
+            langues: "var(--color-langues)"
         };
 
         const grid = document.getElementById("agentsGrid");
@@ -1062,9 +1082,15 @@
         const executionMode = document.getElementById("executionMode");
         const promptInput = document.getElementById("promptInput");
         const terminalOutput = document.getElementById("terminalOutput");
+        
+        // Upload Elements
+        const fileSelector = document.getElementById("fileSelector");
+        const btnUpload = document.getElementById("btnUpload");
+        const uploadedFileStatus = document.getElementById("uploadedFileStatus");
 
         let activeAgent = null;
         let isLocalServerOnline = false;
+        let attachedFilepath = "";
 
         // Poll Local Bridge Status
         async function checkLocalBridge() {
@@ -1167,19 +1193,66 @@
             backdrop.classList.add("active");
         }
 
+        // Close modal resets upload
         closeModalBtn.addEventListener("click", () => {
             backdrop.classList.remove("active");
             activeAgent = null;
+            attachedFilepath = "";
+            fileSelector.value = "";
+            uploadedFileStatus.innerText = "";
+        });
+
+        // Trigger file input
+        btnUpload.addEventListener("click", () => {
+            if (!isLocalServerOnline) return;
+            fileSelector.click();
+        });
+
+        // Handle file upload POST
+        fileSelector.addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            uploadedFileStatus.innerText = "⌛ Téléversement...";
+            uploadedFileStatus.style.color = "var(--text-secondary)";
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            try {
+                const res = await fetch("http://localhost:8000/upload", {
+                    method: "POST",
+                    body: formData
+                });
+                const data = await res.json();
+                if (data.status === "ok") {
+                    attachedFilepath = data.filepath;
+                    uploadedFileStatus.innerText = `📎 ${file.name} (Prêt)`;
+                    uploadedFileStatus.style.color = "#34d399";
+                } else {
+                    uploadedFileStatus.innerText = "❌ Échec du téléversement";
+                    uploadedFileStatus.style.color = "#f87171";
+                }
+            } catch (err) {
+                uploadedFileStatus.innerText = "❌ Échec du téléversement (Pont hors ligne)";
+                uploadedFileStatus.style.color = "#f87171";
+            }
         });
 
         // Run agent locally and stream results via SSE
         btnRun.addEventListener("click", async () => {
             if (!activeAgent || !isLocalServerOnline) return;
 
-            const prompt = promptInput.value.trim() || "Fais une démonstration de tes compétences.";
+            let prompt = promptInput.value.trim() || "Fais une démonstration de tes compétences.";
+            if (attachedFilepath) {
+                prompt += `\n\n[Fichier joint à analyser : ${attachedFilepath}]`;
+            }
             const isHierarchical = executionMode.value === "hierarchical";
 
             terminalOutput.innerHTML = `<div class="terminal-status">⌛ Lancement de l'agent en mode ${isHierarchical ? 'Hiérarchique (31 agents)' : 'Classique'}...</div>`;
+            if (attachedFilepath) {
+                terminalOutput.innerHTML += `<div class="terminal-status">📎 Fichier joint détecté : ${attachedFilepath.split('/').pop()}</div>`;
+            }
             btnRun.setAttribute("disabled", "true");
             promptInput.setAttribute("disabled", "true");
 
@@ -1251,6 +1324,9 @@
             } finally {
                 btnRun.removeAttribute("disabled");
                 promptInput.removeAttribute("disabled");
+                attachedFilepath = "";
+                fileSelector.value = "";
+                uploadedFileStatus.innerText = "";
             }
         });
 
